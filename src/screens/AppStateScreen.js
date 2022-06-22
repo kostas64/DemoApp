@@ -7,37 +7,41 @@ import {
   Alert,
   Platform,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
+import {useFocusEffect} from '@react-navigation/native';
 import Title from '../components/title';
 import {CommonStyles} from '../utils/CommonStyles';
 import Strings from '../assets/dictionaries/strings.json';
 import {colors} from '../utils/Colors';
 
-const AppStateScreen = () => {
+const AppStateScreen = ({navigation}) => {
   const appStateRef = useRef(AppState.currentState);
   const [appState, setAppState] = useState(appStateRef.current);
-  useEffect(() => {
-    const appStateListener = AppState.addEventListener(
-      'change',
-      nextAppState => {
-        if (
-          appStateRef.current.match(/inactive|background/) &&
-          nextAppState === 'active'
-        ) {
-          Alert.alert(Strings.appStateAlertTitle, Strings.appStateAlertBody, [
-            {text: Strings.appStateAlertAction},
-          ]);
-        }
 
-        appStateRef.current = nextAppState;
-        setAppState(appStateRef.current);
-      },
-    );
-    //Remove listener on unmount
-    return () => {
-      appStateListener.remove();
-    };
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      const appStateListener = AppState.addEventListener(
+        'change',
+        nextAppState => {
+          if (
+            appStateRef.current.match(/inactive|background/) &&
+            nextAppState === 'active'
+          ) {
+            Alert.alert(Strings.appStateAlertTitle, Strings.appStateAlertBody, [
+              {text: Strings.appStateAlertAction},
+            ]);
+          }
+
+          appStateRef.current = nextAppState;
+          setAppState(appStateRef.current);
+        },
+      );
+
+      return () => {
+        !!appStateListener && appStateListener.remove();
+      };
+    }, []),
+  );
 
   const {shadowStyle} = CommonStyles;
 
