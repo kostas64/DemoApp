@@ -3,28 +3,31 @@ import {
   StyleSheet,
   Dimensions,
   Text,
-  ImageBackground,
   StatusBar,
+  Animated,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
-import Title from '../components/title';
+import React, {useEffect, useRef, useState} from 'react';
 import {CommonStyles} from '../utils/CommonStyles';
 import {colors} from '../utils/Colors';
-import Strings from '../assets/dictionaries/strings.json';
 import Carousel from 'react-native-snap-carousel';
+import Ionic from 'react-native-vector-icons/Ionicons';
+import IconBubble from '../components/iconBubble';
+import AntIcon from 'react-native-vector-icons/AntDesign';
 
 const WIDTH_CARD_MAX = 280;
 const WIDTH_SCREEN_MAX = 375;
 const WIDTH_CARD_MIN = 260;
 const WIDTH_SCREEN_MIN = 320;
-const HEIGHT_CARD_MIN = 280;
 const WIDTH_THR = 320;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const ProjectScreen = () => {
-  const {shadowStyle} = CommonStyles;
   const carouselRef = useRef();
+  const fadeValue = useRef(new Animated.Value(1)).current;
+  const translateValue = useRef(new Animated.Value(0)).current;
+  const [prevIndex, setPrevIndex] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
+
   const DATA = [
     {
       id: '1',
@@ -32,17 +35,59 @@ const ProjectScreen = () => {
       description:
         'This app contains logic about authentication logic. Also it follows react native docs on how to handle navigation based on user token.',
       technologies: ['React Native', 'Javascript'],
-      image: require('../assets/images/mountain.jpeg'),
+      image: require('../assets/images/sea.jpeg'),
     },
     {
       id: '2',
       title: 'Demonstration App',
       description:
         'This project is the one you use right now. App demonstrates mechanisms of React Native and how i use them. Some of them is DrawerNavigation, Lotties, Animated API, AppState and Carousel',
-      technologies: ['React Native', 'Javascript'],
+      technologies: ['Mobile', 'Javascript', 'React Native'],
       image: require('../assets/images/lake.jpeg'),
     },
   ];
+
+  useEffect(() => {
+    if (prevIndex !== null)
+      Animated.timing(fadeValue, {
+        toValue: 0,
+        duration: 100,
+        useNativeDriver: true,
+      }).start(() =>
+        Animated.timing(fadeValue, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: true,
+        }).start(),
+      );
+  }, [prevIndex]);
+
+  const translateStyle = {
+    transform: [
+      {
+        translateX: translateValue.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 400],
+        }),
+      },
+    ],
+  };
+
+  useEffect(() => {
+    if (prevIndex !== null)
+      Animated.timing(translateValue, {
+        toValue: 1,
+        duration: 150,
+        useNativeDriver: true,
+      }).start(() =>
+        Animated.spring(translateValue, {
+          toValue: 0,
+          friction: 3,
+          tension: 30,
+          useNativeDriver: true,
+        }).start(),
+      );
+  }, [prevIndex]);
 
   const getSize = () => {
     if (SCREEN_WIDTH > WIDTH_THR) {
@@ -72,28 +117,72 @@ const ProjectScreen = () => {
     );
   };
 
+  const getIcons = () => {
+    const javaScriptIcon = (
+      <Ionic size={40} name={'logo-javascript'} color={colors.mainBg} />
+    );
+    const react = <Ionic size={40} name={'logo-react'} color={colors.mainBg} />;
+    const mobile = <AntIcon size={40} name={'mobile1'} color={colors.mainBg} />;
+    return (
+      <Animated.View
+        style={[
+          translateStyle,
+          {
+            paddingTop: 30,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+        ]}>
+        {DATA[activeIndex]?.technologies.map((tech, i) => {
+          return (
+            <IconBubble key={i} index={i}>
+              {tech === 'React Native' && react}
+              {tech === 'Javascript' && javaScriptIcon}
+              {tech === 'Mobile' && mobile}
+            </IconBubble>
+          );
+        })}
+      </Animated.View>
+    );
+  };
+
+  const {shadowStyle} = CommonStyles;
+
   return (
     <>
       <StatusBar hidden />
       <View style={styles.container}>
-        <ImageBackground
+        <View style={{flex: 1}}>
+          <Animated.Image
+            style={{
+              position: 'absolute',
+              height: '100%',
+              opacity: fadeValue,
+            }}
+            imageStyle={{resizeMode: 'center'}}
+            source={DATA[activeIndex]?.image}
+          />
+        </View>
+        {getIcons()}
+        {/*  LinearGradient*/}
+        <View
           style={{
-            flex: 1,
-            height: '100%',
-            width: '100%',
-          }}
-          imageStyle={{resizeMode: 'cover'}}
-          source={DATA[activeIndex]?.image}
-        />
-        {/* getIcons() to Show tech, LinearGradient*/}
-        <View style={{flex: 1, alignItems: 'center', marginVertical: 32}}>
+            marginVertical: 32,
+            height: '25%',
+          }}>
           <Carousel
             data={DATA}
             ref={carouselRef}
             renderItem={renderItem}
             itemWidth={getSize() + 16}
             sliderWidth={SCREEN_WIDTH}
-            onSnapToItem={index => setActiveIndex(index)}
+            onSnapToItem={index => {
+              setPrevIndex(activeIndex);
+              setTimeout(() => {
+                setActiveIndex(index);
+              }, 100);
+            }}
           />
         </View>
       </View>
