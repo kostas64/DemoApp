@@ -1,0 +1,23 @@
+{
+  //Drawer
+  "name": "Konstantinos Efkarpidis",
+  //HomeScreen
+  "homeTitle": "Demonstration App",
+  "homeBodyTitle": "Welcome to my App",
+  "homeBodyContent": "In this app you will find usage examples on Drawer Navigation, LottieView, Animations and AppState API. You can open the navigaiton menu by tapping the button below or by swiping right.",
+  "homeButtonText": "Open Menu",
+  //AnimationsScreen
+  "animationsTitle": "Animations",
+  "animationsScaleLabel": "Scale the box",
+  "animationsFlipLabel": "Flip the box horizontal",
+  "animationsFlipYLabel": "Flip the box vertical",
+  "animationsTranslateLabel": "Move the box",
+  //AppStateScreen
+  "appStateTitle": "App State",
+  "appStateBody": "In this screen you can test functionality of AppState API. Minimize the app and open again to trigger an alert when app come to foreground",
+  "appStateAlertTitle": "Info",
+  "appStateAlertBody": "Your app is active again!",
+  "appStateAlertAction": "OK",
+  //ProjectsScreen
+  "projectsTitle": "Projects"
+}
