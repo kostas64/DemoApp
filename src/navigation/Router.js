@@ -21,7 +21,7 @@ export const Router = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        useLegacyImplementation //Sometimes drawer didnt close with onPress
+        useLegacyImplementation //In case drawer doesn't close with onPress
         drawerContent={props => <CustomDrawer {...props} />}
         screenOptions={{
           headerShown: false,
