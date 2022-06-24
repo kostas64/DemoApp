@@ -7,7 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import ProjectScreen from '../screens/ProjectScreen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import CustomDrawer from '../components/customDrawer';
+import CustomDrawer from '../components/CustomDrawer';
 import {colors} from '../utils/Colors';
 
 const Drawer = createDrawerNavigator();

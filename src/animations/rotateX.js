@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import {Animated, StyleSheet, Text, View} from 'react-native';
-import TouchableButton from '../components/button';
+import TouchableButton from '../components/Button';
 import Strings from '../assets/dictionaries/strings.json';
 import {colors} from '../utils/Colors';
 

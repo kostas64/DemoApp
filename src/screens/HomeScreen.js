@@ -9,7 +9,7 @@ import React, {useState} from 'react';
 import LottieView from 'lottie-react-native';
 import {useDrawerStatus} from '@react-navigation/drawer';
 import {CommonStyles} from '../utils/CommonStyles';
-import Title from '../components/title';
+import Title from '../components/Title';
 import Strings from '../assets/dictionaries/strings.json';
 import {colors} from '../utils/Colors';
 

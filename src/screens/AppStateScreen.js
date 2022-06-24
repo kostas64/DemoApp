@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, {useRef, useState} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
-import Title from '../components/title';
+import Title from '../components/Title';
 import {CommonStyles} from '../utils/CommonStyles';
 import Strings from '../assets/dictionaries/strings.json';
 import {colors} from '../utils/Colors';

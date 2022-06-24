@@ -11,8 +11,9 @@ import {CommonStyles} from '../utils/CommonStyles';
 import {colors} from '../utils/Colors';
 import Carousel from 'react-native-snap-carousel';
 import Ionic from 'react-native-vector-icons/Ionicons';
-import IconBubble from '../components/iconBubble';
+import IconBubble from '../components/IconBubble';
 import AntIcon from 'react-native-vector-icons/AntDesign';
+import Faded from '../components/Faded';
 
 const WIDTH_CARD_MAX = 280;
 const WIDTH_SCREEN_MAX = 375;
@@ -99,17 +100,7 @@ const ProjectScreen = () => {
 
   const renderItem = ({item, index}) => {
     return (
-      <View
-        key={index}
-        style={[
-          shadowStyle,
-          {
-            flex: 1,
-            backgroundColor: colors.darkCyan,
-            padding: 8,
-            borderRadius: 12,
-          },
-        ]}>
+      <View key={index} style={[shadowStyle, styles.carouselItem]}>
         <Text>{item.title}</Text>
         <Text>{item.description}</Text>
         <Text>{item.technologies}</Text>
@@ -124,16 +115,7 @@ const ProjectScreen = () => {
     const react = <Ionic size={40} name={'logo-react'} color={colors.mainBg} />;
     const mobile = <AntIcon size={40} name={'mobile1'} color={colors.mainBg} />;
     return (
-      <Animated.View
-        style={[
-          translateStyle,
-          {
-            paddingTop: 30,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-        ]}>
+      <Animated.View style={[translateStyle, styles.animatedIcons]}>
         {DATA[activeIndex]?.technologies.map((tech, i) => {
           return (
             <IconBubble key={i} index={i}>
@@ -163,9 +145,11 @@ const ProjectScreen = () => {
             imageStyle={{resizeMode: 'center'}}
             source={DATA[activeIndex]?.image}
           />
+          <View style={styles.fadeStyle}>
+            <Faded color={colors.mainBg} height={40} direction={'up'} />
+          </View>
         </View>
         {getIcons()}
-        {/*  LinearGradient*/}
         <View
           style={{
             marginVertical: 32,
@@ -194,6 +178,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.mainBg,
+  },
+  fadeStyle: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  animatedIcons: {
+    paddingTop: 30,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  carouselItem: {
+    flex: 1,
+    padding: 8,
+    borderRadius: 12,
+    backgroundColor: colors.darkCyan,
   },
 });
 

@@ -1,6 +1,6 @@
 import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 import React from 'react';
-import Title from '../components/title';
+import Title from '../components/Title';
 import Scale from '../animations/scale';
 import RotateY from '../animations/rotateY';
 import RotateX from '../animations/rotateX';
