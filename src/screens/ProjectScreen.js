@@ -1,19 +1,11 @@
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  Text,
-  StatusBar,
-  Animated,
-} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-import {CommonStyles} from '../utils/CommonStyles';
 import {colors} from '../utils/Colors';
-import Carousel from 'react-native-snap-carousel';
-import Ionic from 'react-native-vector-icons/Ionicons';
-import IconBubble from '../components/IconBubble';
-import AntIcon from 'react-native-vector-icons/AntDesign';
 import Faded from '../components/Faded';
+import Carousel from 'react-native-snap-carousel';
+import IconBubble from '../components/IconBubble';
+import CarouselItem from '../components/CarouselItem';
+import React, {useEffect, useRef, useState} from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {View, StyleSheet, Dimensions, StatusBar, Animated} from 'react-native';
 
 const WIDTH_CARD_MAX = 280;
 const WIDTH_SCREEN_MAX = 375;
@@ -34,8 +26,9 @@ const ProjectScreen = () => {
       id: '1',
       title: 'Authentication App',
       description:
-        'This app contains logic about authentication logic. Also it follows react native docs on how to handle navigation based on user token.',
+        'This app contains logic about authentication flow. Also it follows react native docs on how to handle navigation based on user token.',
       technologies: ['React Native', 'Javascript'],
+      env: 'Web',
       image: require('../assets/images/sea.jpeg'),
     },
     {
@@ -43,7 +36,8 @@ const ProjectScreen = () => {
       title: 'Demonstration App',
       description:
         'This project is the one you use right now. App demonstrates mechanisms of React Native and how i use them. Some of them is DrawerNavigation, Lotties, Animated API, AppState and Carousel',
-      technologies: ['Mobile', 'Javascript', 'React Native'],
+      technologies: ['Javascript', 'React Native'],
+      env: 'Mobile',
       image: require('../assets/images/lake.jpeg'),
     },
   ];
@@ -100,20 +94,23 @@ const ProjectScreen = () => {
 
   const renderItem = ({item, index}) => {
     return (
-      <View key={index} style={[shadowStyle, styles.carouselItem]}>
-        <Text>{item.title}</Text>
-        <Text>{item.description}</Text>
-        <Text>{item.technologies}</Text>
-      </View>
+      <CarouselItem
+        key={index}
+        title={item.title}
+        description={item.description}
+        env={item.env}
+      />
     );
   };
 
   const getIcons = () => {
     const javaScriptIcon = (
-      <Ionic size={40} name={'logo-javascript'} color={colors.mainBg} />
+      <Ionicons size={40} name={'logo-javascript'} color={colors.mainBg} />
     );
-    const react = <Ionic size={40} name={'logo-react'} color={colors.mainBg} />;
-    const mobile = <AntIcon size={40} name={'mobile1'} color={colors.mainBg} />;
+    const react = (
+      <Ionicons size={40} name={'logo-react'} color={colors.mainBg} />
+    );
+
     return (
       <Animated.View style={[translateStyle, styles.animatedIcons]}>
         {DATA[activeIndex]?.technologies.map((tech, i) => {
@@ -121,15 +118,12 @@ const ProjectScreen = () => {
             <IconBubble key={i} index={i}>
               {tech === 'React Native' && react}
               {tech === 'Javascript' && javaScriptIcon}
-              {tech === 'Mobile' && mobile}
             </IconBubble>
           );
         })}
       </Animated.View>
     );
   };
-
-  const {shadowStyle} = CommonStyles;
 
   return (
     <>
@@ -152,8 +146,8 @@ const ProjectScreen = () => {
         {getIcons()}
         <View
           style={{
-            marginVertical: 32,
-            height: '25%',
+            marginVertical: 18,
+            height: Dimensions.get('window').height * 0.35,
           }}>
           <Carousel
             data={DATA}
@@ -168,6 +162,7 @@ const ProjectScreen = () => {
               }, 100);
             }}
           />
+          {/* TO DO PAGINATION */}
         </View>
       </View>
     </>
@@ -190,12 +185,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  carouselItem: {
-    flex: 1,
-    padding: 8,
-    borderRadius: 12,
-    backgroundColor: colors.darkCyan,
   },
 });
 

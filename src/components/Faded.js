@@ -4,7 +4,7 @@ import {ColorUtils} from '../utils/ColorUtils';
 
 //Divisor => # of views to render
 //More views -> better opacity escalation
-const divisor = 100;
+const divisor = 1000;
 const pi = 1 / divisor;
 
 const Faded = props => {
