@@ -5,7 +5,14 @@ import IconBubble from '../components/IconBubble';
 import CarouselItem from '../components/CarouselItem';
 import React, {useEffect, useRef, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {View, StyleSheet, Dimensions, StatusBar, Animated} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  StatusBar,
+  Animated,
+  Linking,
+} from 'react-native';
 
 const WIDTH_CARD_MAX = 280;
 const WIDTH_SCREEN_MAX = 375;
@@ -29,6 +36,7 @@ const ProjectScreen = () => {
         'This app contains logic about authentication flow. Also it follows react native docs on how to handle navigation based on user token.',
       technologies: ['React Native', 'Javascript'],
       env: 'Web',
+      url: 'https://github.com/kostas64/authenticationApp',
       image: require('../assets/images/sea.jpeg'),
     },
     {
@@ -37,6 +45,7 @@ const ProjectScreen = () => {
       description:
         'This project is the one you use right now. App demonstrates mechanisms of React Native and how i use them. Some of them is DrawerNavigation, Lotties, Animated API, AppState and Carousel',
       technologies: ['Javascript', 'React Native'],
+      url: 'https://github.com/kostas64/foodOrder',
       env: 'Mobile',
       image: require('../assets/images/lake.jpeg'),
     },
@@ -99,6 +108,7 @@ const ProjectScreen = () => {
         title={item.title}
         description={item.description}
         env={item.env}
+        onPress={() => handleClick(item.url)}
       />
     );
   };
@@ -123,6 +133,16 @@ const ProjectScreen = () => {
         })}
       </Animated.View>
     );
+  };
+
+  const handleClick = url => {
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        console.log("Don't know how to open URI: " + url);
+      }
+    });
   };
 
   return (

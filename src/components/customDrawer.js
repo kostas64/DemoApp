@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   lottieStyle: {
     position: 'absolute',
     right: 0,
-    bottom: 52,
+    bottom: 42,
     height: 100,
   },
 });

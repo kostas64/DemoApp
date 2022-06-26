@@ -32,7 +32,7 @@ const CarouselItem = props => {
           <Text style={styles.description}>{props.description}</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.footer}>
+      <TouchableOpacity style={styles.footer} onPress={props.onPress}>
         <MaterialCommunityIcons
           name={'github'}
           size={25}
