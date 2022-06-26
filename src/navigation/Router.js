@@ -4,11 +4,11 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import AnimationsScreen from '../screens/AnimationsScreen';
 import AppStateScreen from '../screens/AppStateScreen';
 import HomeScreen from '../screens/HomeScreen';
-import ProjectScreen from '../screens/ProjectScreen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CustomDrawer from '../components/CustomDrawer';
 import {colors} from '../utils/Colors';
+import {ProjectStack} from './project.config.router';
 
 const Drawer = createDrawerNavigator();
 
@@ -66,7 +66,7 @@ export const Router = () => {
         />
         <Drawer.Screen
           name="Projects"
-          component={ProjectScreen}
+          component={ProjectStack}
           options={{
             drawerIcon: ({color}) => {
               return <MaterialIcon name={'github'} size={24} color={color} />;
