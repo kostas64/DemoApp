@@ -9,6 +9,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CustomDrawer from '../components/CustomDrawer';
 import {colors} from '../utils/Colors';
 import {ProjectStack} from './project.config.router';
+import {Platform} from 'react-native';
 
 const Drawer = createDrawerNavigator();
 

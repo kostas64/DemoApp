@@ -5,16 +5,7 @@ import IconBubble from '../components/IconBubble';
 import CarouselItem from '../components/CarouselItem';
 import React, {useEffect, useRef, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import LottieView from 'lottie-react-native';
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  StatusBar,
-  Animated,
-  Linking,
-  Text,
-} from 'react-native';
+import {View, StyleSheet, Dimensions, Animated, Linking} from 'react-native';
 
 const WIDTH_CARD_MAX = 280;
 const WIDTH_SCREEN_MAX = 375;
@@ -27,7 +18,6 @@ const ProjectScreen = () => {
   const carouselRef = useRef();
   const fadeValue = useRef(new Animated.Value(1)).current;
   const translateValue = useRef(new Animated.Value(0)).current;
-  const [loading, setLoading] = useState(true);
   const [prevIndex, setPrevIndex] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -147,28 +137,9 @@ const ProjectScreen = () => {
       }
     });
   };
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1500);
-  }, []);
-
-  if (loading)
-    return (
-      <View style={{flex: 1, alignSelf: 'center', justifyContent: 'center'}}>
-        <LottieView
-          autoPlay
-          style={styles.lottieStyle}
-          loop={true}
-          source={require('../assets/lottie/loading.json')}
-        />
-        <Text style={{fontWeight: '700', fontSize: 24, color: colors.black}}>
-          Loading...
-        </Text>
-      </View>
-    );
 
   return (
     <>
-      <StatusBar hidden />
       <View style={styles.container}>
         <View style={{flex: 1}}>
           <Animated.Image
@@ -181,7 +152,7 @@ const ProjectScreen = () => {
             source={DATA[activeIndex]?.image}
           />
           <View style={styles.fadeStyle}>
-            <Faded color={colors.mainBg} height={40} direction={'up'} />
+            <Faded color={colors.mainBg} height={50} direction={'up'} />
           </View>
         </View>
         {getIcons()}
@@ -226,12 +197,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  lottieStyle: {
-    position: 'absolute',
-    right: 0,
-    bottom: 42,
-    height: 100,
   },
 });
 

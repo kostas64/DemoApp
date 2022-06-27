@@ -1,10 +1,10 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Platform, View} from 'react-native';
 import {ColorUtils} from '../utils/ColorUtils';
 
 //Divisor => # of views to render
 //More views -> better opacity escalation
-const divisor = 10;
+const divisor = Platform.OS === 'ios' ? 600 : 50;
 const pi = 1 / divisor;
 
 const Faded = props => {

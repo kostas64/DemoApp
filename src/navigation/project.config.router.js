@@ -4,19 +4,19 @@ import {
   CardStyleInterpolators,
 } from '@react-navigation/stack';
 import ProjectScreen from '../screens/ProjectScreen';
+import LoadingScreen from '../screens/LoadingScreen';
 
 const Stack = createStackNavigator();
 
 export const ProjectStack = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{headerShown: false}}
-      initialRouteName="Project">
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name={'Loading'} component={LoadingScreen} />
       <Stack.Screen
         name={'Project'}
         component={ProjectScreen}
         options={{
-          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
     </Stack.Navigator>
