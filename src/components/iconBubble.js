@@ -8,8 +8,8 @@ export default function IconBubble(props) {
       style={[
         props.index !== 0 && {marginLeft: 15},
         {
-          height: 60,
-          width: 60,
+          height: 50,
+          width: 50,
           backgroundColor: colors.white,
           alignItems: 'center',
           justifyContent: 'center',

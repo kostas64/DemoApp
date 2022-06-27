@@ -1,6 +1,6 @@
 import {colors} from '../utils/Colors';
 import Faded from '../components/Faded';
-import Carousel from 'react-native-snap-carousel';
+import Carousel, {Pagination} from 'react-native-snap-carousel';
 import IconBubble from '../components/IconBubble';
 import CarouselItem from '../components/CarouselItem';
 import React, {useEffect, useRef, useState} from 'react';
@@ -108,10 +108,10 @@ const ProjectScreen = () => {
 
   const getIcons = () => {
     const javaScriptIcon = (
-      <Ionicons size={40} name={'logo-javascript'} color={colors.mainBg} />
+      <Ionicons size={35} name={'logo-javascript'} color={colors.mainBg} />
     );
     const react = (
-      <Ionicons size={40} name={'logo-react'} color={colors.mainBg} />
+      <Ionicons size={35} name={'logo-react'} color={colors.mainBg} />
     );
 
     return (
@@ -141,11 +141,11 @@ const ProjectScreen = () => {
   return (
     <>
       <View style={styles.container}>
-        <View style={{flex: 1}}>
+        <View style={{height: 300}}>
           <Animated.Image
             style={{
               position: 'absolute',
-              height: '100%',
+              height: '90%',
               opacity: fadeValue,
             }}
             imageStyle={{resizeMode: 'center'}}
@@ -158,8 +158,8 @@ const ProjectScreen = () => {
         {getIcons()}
         <View
           style={{
-            marginVertical: 18,
-            height: Dimensions.get('window').height * 0.35,
+            marginVertical: 10,
+            height: 250,
           }}>
           <Carousel
             data={DATA}
@@ -174,7 +174,13 @@ const ProjectScreen = () => {
               }, 100);
             }}
           />
-          {/* TO DO PAGINATION */}
+          <Pagination
+            dotsLength={DATA.length}
+            activeDotIndex={activeIndex}
+            dotStyle={styles.dotStyle}
+            inactiveDotStyle={styles.inactiveDotStyle}
+            containerStyle={{paddingVertical: 0}}
+          />
         </View>
       </View>
     </>
@@ -188,15 +194,32 @@ const styles = StyleSheet.create({
   },
   fadeStyle: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 30,
     left: 0,
     right: 0,
   },
   animatedIcons: {
-    paddingTop: 30,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+  },
+  dotStyle: {
+    width: 36,
+    height: 9,
+    borderRadius: 8,
+    marginTop: 10,
+    marginHorizontal: -7,
+    margin: 0,
+    padding: 0,
+    backgroundColor: colors.softCyan,
+  },
+  inactiveDotStyle: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    marginHorizontal: -7,
+    margin: 0,
+    padding: 0,
+    backgroundColor: colors.darkCyan,
   },
 });
 

@@ -27,7 +27,7 @@ const CarouselItem = props => {
             <AntDesign name={'mobile1'} size={40} color={colors.white} />
           )}
         </View>
-        <View style={{marginTop: 10, marginHorizontal: 5}}>
+        <View style={{marginTop: 5, marginHorizontal: 5}}>
           <Text style={styles.textTitle}>{props.title}</Text>
           <Text style={styles.description}>{props.description}</Text>
         </View>
@@ -47,17 +47,17 @@ const CarouselItem = props => {
 const styles = StyleSheet.create({
   carouselItem: {
     flex: 1,
-    padding: 14,
+    padding: 12,
     borderRadius: 12,
     backgroundColor: colors.darkCyan,
     justifyContent: 'space-between',
-    maxHeight: 230,
+    maxHeight: 220,
   },
   description: {
     fontSize: 14,
     color: colors.white,
     fontWeight: '500',
-    marginTop: 10,
+    marginTop: 5,
     marginBottom: 5,
   },
   innerContainer: {
