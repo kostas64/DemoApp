@@ -6,6 +6,7 @@ import CarouselItem from '../components/CarouselItem';
 import React, {useEffect, useRef, useState} from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {View, StyleSheet, Dimensions, Animated, Linking} from 'react-native';
+import {DATA} from '../assets/carouselData';
 
 const WIDTH_CARD_MAX = 280;
 const WIDTH_SCREEN_MAX = 375;
@@ -20,29 +21,6 @@ const ProjectScreen = () => {
   const translateValue = useRef(new Animated.Value(0)).current;
   const [prevIndex, setPrevIndex] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const DATA = [
-    {
-      id: '1',
-      title: 'Authentication App',
-      description:
-        'This app contains logic about authentication flow. Also it follows react native docs on how to handle navigation based on user token.',
-      technologies: ['React Native', 'Javascript'],
-      env: 'Web',
-      url: 'https://github.com/kostas64/authenticationApp',
-      image: require('../assets/images/sea.jpeg'),
-    },
-    {
-      id: '2',
-      title: 'Demonstration App',
-      description:
-        'This project is the one you use right now. App demonstrates mechanisms of React Native and how i use them. Some of them is DrawerNavigation, Lotties, Animated API, AppState and Carousel',
-      technologies: ['Javascript', 'React Native'],
-      url: 'https://github.com/kostas64/foodOrder',
-      env: 'Mobile',
-      image: require('../assets/images/lake.jpeg'),
-    },
-  ];
 
   useEffect(() => {
     if (prevIndex !== null)
@@ -119,7 +97,7 @@ const ProjectScreen = () => {
         {DATA[activeIndex]?.technologies.map((tech, i) => {
           return (
             <IconBubble key={i} index={i}>
-              {tech === 'React Native' && react}
+              {tech.includes('React') && react}
               {tech === 'Javascript' && javaScriptIcon}
             </IconBubble>
           );
@@ -141,14 +119,14 @@ const ProjectScreen = () => {
   return (
     <>
       <View style={styles.container}>
-        <View style={{height: 300}}>
+        <View style={{height: Dimensions.get('window').height / 2.5}}>
           <Animated.Image
             style={{
-              position: 'absolute',
-              height: '90%',
+              width: '100%',
+              height: Dimensions.get('window').height / 2.5,
               opacity: fadeValue,
             }}
-            imageStyle={{resizeMode: 'center'}}
+            resizeMode={'stretch'}
             source={DATA[activeIndex]?.image}
           />
           <View style={styles.fadeStyle}>
@@ -194,11 +172,13 @@ const styles = StyleSheet.create({
   },
   fadeStyle: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 0,
     left: 0,
     right: 0,
   },
   animatedIcons: {
+    paddingTop: 15,
+    paddingBottom: 10,
     flexDirection: 'row',
     justifyContent: 'center',
   },

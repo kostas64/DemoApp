@@ -10,7 +10,9 @@ const Stack = createStackNavigator();
 
 export const ProjectStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      initialRouteName="Loading"
+      screenOptions={{headerShown: false, gestureEnabled: false}}>
       <Stack.Screen name={'Loading'} component={LoadingScreen} />
       <Stack.Screen
         name={'Project'}

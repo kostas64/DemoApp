@@ -68,6 +68,19 @@ export const Router = () => {
         <Drawer.Screen
           name="Projects"
           component={ProjectStack}
+          listeners={nav => {
+            const screen =
+              nav?.route?.state?.routes?.[nav?.route?.state?.index]?.name;
+            if (screen !== 'Project') {
+              nav.navigation.setOptions({
+                swipeEdgeWidth: 0,
+              });
+            } else {
+              nav.navigation.setOptions({
+                swipeEdgeWidth: 50,
+              });
+            }
+          }}
           options={{
             drawerIcon: ({color}) => {
               return <MaterialIcon name={'github'} size={24} color={color} />;
